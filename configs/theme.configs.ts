@@ -9,6 +9,22 @@ import {
 } from "@/constants/colors";
 import { createTheme } from "@mui/material";
 
+import { Public_Sans, Barlow } from "@next/font/google";
+
+export const primaryFont = Public_Sans({
+  weight: ["400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  display: "swap",
+  fallback: ["Helvetica", "Arial", "sans-serif"],
+});
+
+export const secondaryFont = Barlow({
+  weight: ["900"],
+  subsets: ["latin"],
+  display: "swap",
+  fallback: ["Helvetica", "Arial", "sans-serif"],
+});
+
 export const enum themeModes {
   light = "light",
   dark = "dark",
@@ -55,6 +71,9 @@ const themeConfigs = {
               lighter: ERROR.lighter,
               light: ERROR.light,
             },
+            border: {
+              default: GREY_COLOR[800],
+            },
           }
         : {
             primary: {
@@ -93,6 +112,9 @@ const themeConfigs = {
               darker: ERROR.darker,
               dark: ERROR.dark,
             },
+            border: {
+              default: GREY_COLOR[0],
+            },
           };
     return createTheme({
       palette: { mode, grey: GREY_COLOR, ...customPalette },
@@ -101,6 +123,7 @@ const themeConfigs = {
           defaultProps: { disableElevation: true },
         },
       },
+      typography: { fontFamily: primaryFont.style.fontFamily },
     });
   },
 };
