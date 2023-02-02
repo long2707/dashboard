@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { HorizontalInput } from "@/components/common/CustomInput";
-import HookForm from "@/components/hook-form/HookForm";
+
 import {
   Box,
   Grid,
@@ -25,6 +25,14 @@ import { LoadingButton } from "@/components/common/Button";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import dynamic from "next/dynamic";
+import { LoadingScreen } from "@/components/common/Loading";
+import Meta from "@/components/Meta/Meta";
+
+const HookForm = dynamic(() => import("@/components/hook-form/HookForm"), {
+  ssr: false,
+  loading: () => <LoadingScreen />,
+});
 
 const schema = yup.object({
   email: yup
@@ -48,6 +56,7 @@ const Register: NextPage = (props): JSX.Element => {
 
   return (
     <>
+      <Meta title="register" description="register admin" />
       <HookForm title="Manage the job more effectively with You">
         <Typography
           variant="h4"

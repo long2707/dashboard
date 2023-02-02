@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { HorizontalInput } from "@/components/common/CustomInput";
-import HookForm from "@/components/hook-form/HookForm";
+
 import {
   Box,
   Divider,
@@ -16,6 +16,8 @@ import {
   Typography,
 } from "@mui/material";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
 import { useSelector } from "react-redux";
 import { RootState } from "@/apps/store";
 import { ERROR, GREY_COLOR, INFO } from "@/constants/colors";
@@ -26,6 +28,13 @@ import { LoadingButton } from "@/components/common/Button";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import Meta from "@/components/Meta/Meta";
+import { LoadingScreen } from "@/components/common/Loading";
+
+const HookForm = dynamic(() => import("@/components/hook-form/HookForm"), {
+  ssr: false,
+  loading: () => <LoadingScreen />,
+});
 
 const schema = yup.object({
   email: yup
@@ -52,6 +61,7 @@ const SignIn: NextPage = (): JSX.Element => {
   });
 
   const onSinginHandler = async (data: any) => {
+    console.log(data);
     setLoading(true);
     try {
       const res = await signIn("credentials", {
@@ -59,6 +69,7 @@ const SignIn: NextPage = (): JSX.Element => {
         password: data.password,
         redirect: false,
       });
+      console.log(res);
       if (res?.ok) {
         route.push("/dashboard");
       } else {
@@ -71,6 +82,7 @@ const SignIn: NextPage = (): JSX.Element => {
   };
   return (
     <>
+      <Meta title="login" description="login" />
       <HookForm title="Hi, Welcome back">
         <Typography
           variant="h4"

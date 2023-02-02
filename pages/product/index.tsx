@@ -2,8 +2,10 @@ import React from "react";
 import AdminLayout from "@/components/Layout/AdminLayout";
 import { withAuth } from "@/hooks/HOCwithAuth";
 
-function HomePage() {
-  return <AdminLayout>dashboard</AdminLayout>;
+type Props = {};
+
+function ProductPage() {
+  return <AdminLayout>dddd</AdminLayout>;
 }
 
-export default withAuth(HomePage);
+export default withAuth(ProductPage);

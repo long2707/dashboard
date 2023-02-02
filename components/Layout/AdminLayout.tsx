@@ -1,13 +1,21 @@
-import { Typography } from "@mui/material";
-import React from "react";
+import React, { ReactNode } from "react";
+import Sidebar from "../SideBar/SideBar";
 import WrapperLayout from "./WrapperLayout";
 
-type Props = {};
+type Props = {
+  children: ReactNode;
+};
 
 const AdminLayout = (props: Props) => {
+  const [IsOpen, setIsOpen] = React.useState<boolean>(false);
+  const { children } = props;
+  const getOpenSidebar = () => {
+    setIsOpen((prev) => !prev);
+  };
   return (
     <WrapperLayout>
-      <Typography>He</Typography>
+      <Sidebar open={IsOpen} toggleSidebar={getOpenSidebar} />
+      {children}
     </WrapperLayout>
   );
 };
